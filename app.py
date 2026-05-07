@@ -1,6 +1,9 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
+load_dotenv()
+def get_secret(name):
+    return os.getenv(name) or st.secrets.get(name)
 import chromadb
 from llama_index.core import VectorStoreIndex, Settings, PromptTemplate
 from llama_index.vector_stores.chroma import ChromaVectorStore
@@ -138,12 +141,20 @@ hr.divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
 </style>
 """, unsafe_allow_html=True)
 
-load_dotenv()
+
 # ================= 3. 金鑰與模型設定 =================
 
 
-Settings.llm = OpenAI(model="gpt-4o", temperature=0.0)
-Settings.embed_model = OpenAIEmbedding()
+
+Settings.llm = OpenAI(
+    model="gpt-4o",
+    temperature=0.0,
+    api_key=get_secret("OPENAI_API_KEY")
+)
+
+Settings.embed_model = OpenAIEmbedding(
+    api_key=get_secret("OPENAI_API_KEY")
+)
 
 
 # ================= 4. 核心 Prompt 定義 =================
@@ -186,9 +197,9 @@ def get_index():
         import chromadb
 
         client = chromadb.CloudClient(
-            api_key=os.getenv("CHROMA_API_KEY"),
-            tenant=os.getenv("CHROMA_TENANT"),
-            database=os.getenv("CHROMA_DATABASE")
+            api_key=get_secret("CHROMA_API_KEY"),
+            tenant=get_secret("CHROMA_TENANT"),
+            database=get_secret("CHROMA_DATABASE")
         )
         client.get_user_identity()
     except Exception:
