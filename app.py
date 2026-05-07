@@ -203,8 +203,9 @@ def get_index():
             database=get_secret("CHROMA_DATABASE")
         )
         client.get_user_identity()
-    except Exception:
-        client = chromadb.PersistentClient(path="./chroma_db")
+    except Exception as e:
+        st.error(f"Chroma Cloud 連線失敗：{e}")
+        st.stop()
 
     chroma_collection = client.get_or_create_collection(name="LlamaIndex_Contracts_v1")
     st.write("=== Chroma count ===")
