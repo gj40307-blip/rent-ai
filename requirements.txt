@@ -6,3 +6,5 @@ llama-index-llms-openai
 llama-index-embeddings-openai
 llama-index-vector-stores-chroma
 openai
+pysqlite3-binary
+protobuf==3.20.3
