@@ -8,7 +8,6 @@ import chromadb
 from llama_index.core import VectorStoreIndex, Settings, PromptTemplate
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 # ================= 1. 網頁基本設定 =================
@@ -153,8 +152,8 @@ Settings.llm = OpenAI(
     api_key=get_secret("OPENAI_API_KEY")
 )
 
-Settings.embed_model = HuggingFaceEmbedding(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+Settings.embed_model = OpenAIEmbedding(
+    api_key=get_secret("OPENAI_API_KEY")
 )
 
 
