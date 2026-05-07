@@ -207,8 +207,6 @@ def get_index():
         st.stop()
 
     chroma_collection = client.get_or_create_collection(name="LlamaIndex_Contracts_v1")
-    st.write("=== Chroma count ===")
-    st.write(chroma_collection.count())
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     return VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
@@ -388,16 +386,6 @@ if submit and user_input.strip():
             )
             detail_response = detail_engine.query(user_input)
 
-            st.write("=== detail_response ===")
-            st.write(str(detail_response))
-
-            st.write("=== source_nodes 數量 ===")
-            st.write(len(detail_response.source_nodes))
-
-            st.write("=== source_nodes ===")
-            st.write(detail_response.source_nodes)
-
-            st.stop()
             
             detail_res = str(detail_response)
 
@@ -439,4 +427,4 @@ if submit and user_input.strip():
         except Exception as e:
             st.error(f"⚠️ 分析失敗，請檢查金鑰或網路連線：{e}")
 
-    #st.rerun()
+    st.rerun()
