@@ -14,10 +14,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-if os.getenv("OPENAI_API_KEY"):
-    print("API KEY 載入成功")
-else:
-    print("抓不到 API KEY")
+
 # ================= 2. 全域 CSS 樣式 =================
 st.markdown("""
 <style>
@@ -143,7 +140,7 @@ hr.divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
 
 load_dotenv()
 # ================= 3. 金鑰與模型設定 =================
-os.getenv("OPENAI_API_KEY")
+
 
 Settings.llm = OpenAI(model="gpt-4o", temperature=0.0)
 Settings.embed_model = OpenAIEmbedding()
