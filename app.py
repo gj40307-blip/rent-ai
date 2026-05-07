@@ -149,7 +149,7 @@ hr.divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
 Settings.llm = OpenAI(
     model="gpt-4o",
     temperature=0.0,
-    api_key=get_secret("OPENAI_API_KEY")
+    api_key=get_secret("OPEAI_API_KEY")
 )
 
 Settings.embed_model = OpenAIEmbedding(
@@ -384,6 +384,10 @@ if submit and user_input.strip():
                 similarity_top_k=3
             )
             detail_response = detail_engine.query(user_input)
+
+            st.write(detail_response)
+            st.write(detail_response.source_nodes)
+            
             detail_res = str(detail_response)
 
             # 第二階段：總結報告
