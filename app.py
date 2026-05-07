@@ -150,7 +150,7 @@ hr.divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
 Settings.llm = OpenAI(
     model="gpt-4o",
     temperature=0.0,
-    api_key=get_secret("OPEAI_API_KEY")
+    api_key=get_secret("OPENAI_API_KEY")
 )
 
 Settings.embed_model = HuggingFaceEmbedding(
@@ -207,6 +207,8 @@ def get_index():
         client = chromadb.PersistentClient(path="./chroma_db")
 
     chroma_collection = client.get_or_create_collection(name="LlamaIndex_Contracts_v1")
+    st.write("=== Chroma count ===")
+    st.write(chroma_collection.count())
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     return VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
