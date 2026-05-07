@@ -385,8 +385,16 @@ if submit and user_input.strip():
             )
             detail_response = detail_engine.query(user_input)
 
-            st.write(detail_response)
+            st.write("=== detail_response ===")
+            st.write(str(detail_response))
+
+            st.write("=== source_nodes 數量 ===")
+            st.write(len(detail_response.source_nodes))
+
+            st.write("=== source_nodes ===")
             st.write(detail_response.source_nodes)
+
+            st.stop()
             
             detail_res = str(detail_response)
 
@@ -428,4 +436,4 @@ if submit and user_input.strip():
         except Exception as e:
             st.error(f"⚠️ 分析失敗，請檢查金鑰或網路連線：{e}")
 
-    st.rerun()
+    #st.rerun()
